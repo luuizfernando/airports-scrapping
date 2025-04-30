@@ -13,6 +13,10 @@ options = Options()
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
+options = Options()
+options.add_experimental_option('prefs', {
+    'intl.accept_languages': 'en,en_US'
+})
 
 # Habilitando o Network do DevTools
 options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
@@ -67,7 +71,7 @@ try:
     origin_input.send_keys(Keys.CONTROL, "a")
     origin_input.send_keys(Keys.BACKSPACE)
     origin_input = driver.find_element(By.ID, 'toPort')
-    origin_input.send_keys("Istanbul")
+    origin_input.send_keys("Kabul")
     time.sleep(1)
     origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
     origin.click()
@@ -160,6 +164,18 @@ if payload_capturado is None:
     driver.quit()
     exit(1)
 
+# Transfere cookies do Selenium para requests
+session = requests.Session()
+selenium_cookies = driver.get_cookies()
+for cookie in selenium_cookies:
+    session.cookies.set(cookie['name'], cookie['value'])
+
+# Debug opcional: imprime cookies usados
+print("\n[DEBUG] Cookies utilizados na requisição:")
+for cookie in session.cookies.items():
+    print(f"{cookie[0]} = {cookie[1]}")
+
+
 # ===== Fazendo a requisição à API ====
 print("\n[INFO] Fazendo requisição à API...")
 
@@ -184,7 +200,6 @@ headers = {
 }
 
 # Configurando a sessão com retry
-session = requests.Session()
 retry = requests.adapters.HTTPAdapter(max_retries=3)
 session.mount('https://', retry)
 

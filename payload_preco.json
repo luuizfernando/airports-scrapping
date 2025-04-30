@@ -1,1 +1,36 @@
-{"selectedBookerSearch":"O","selectedCabinClass":"ECONOMY","moduleType":"TICKETING","passengerTypeList":[{"quantity":2,"code":"ADULT"},{"quantity":1,"code":"CHILD"},{"quantity":1,"code":"INFANT"}],"originDestinationInformationList":[{"destinationAirportCode":"IST","destinationMultiPort":true,"originAirportCode":"CGH","originMultiPort":true,"departureDate":"20-05-2025","destinationCountryCode":"TR","originCountryCode":"BR","destinationDomestic":true,"originDomestic":false,"originCity":"Sao Paulo","destinationCity":"Istanbul","originCityCode":"SAO","destinationCityCode":"IST"}]}
+{
+    "selectedBookerSearch": "O",
+    "selectedCabinClass": "ECONOMY",
+    "moduleType": "TICKETING",
+    "passengerTypeList": [
+        {
+            "quantity": 2,
+            "code": "ADULT"
+        },
+        {
+            "quantity": 1,
+            "code": "CHILD"
+        },
+        {
+            "quantity": 1,
+            "code": "INFANT"
+        }
+    ],
+    "originDestinationInformationList": [
+        {
+            "destinationAirportCode": "KBL",
+            "destinationMultiPort": false,
+            "originAirportCode": "CGH",
+            "originMultiPort": true,
+            "departureDate": "20-05-2025",
+            "destinationCountryCode": "AF",
+            "originCountryCode": "BR",
+            "destinationDomestic": false,
+            "originDomestic": false,
+            "originCity": "Sao Paulo",
+            "destinationCity": "Kabul",
+            "originCityCode": "SAO",
+            "destinationCityCode": "KBL"
+        }
+    ]
+}
