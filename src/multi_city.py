@@ -1,6 +1,5 @@
 from utils.selenium_setup import selenium_setup
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from utils.accept_cookies import accept_cookies
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,14 +13,7 @@ driver.maximize_window()
 driver.get("https://www.turkishairlines.com/")
 
 # ===== Accept cookies =====
-try:
-    cookie_btn = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.ID, "allowCookiesButton"))
-    )
-    cookie_btn.click()
-    print("Cookies accepted.")
-except Exception as e:
-    print("Cookies button not found or error:", e)
+accept_cookies(driver)
 
 # ===== Selecting Multi-city option =====
 travel = driver.find_element(By.ID, 'multi-city')
