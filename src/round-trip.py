@@ -51,7 +51,6 @@ try:
 except Exception as e:
     print("Error in confirming data:", e)
 
-# ===== Catching Payload Request ====
 print("\n[INFO] Waiting for page loading...")
 time.sleep(10)
 
