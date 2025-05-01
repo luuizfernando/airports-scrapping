@@ -1,3 +1,4 @@
+from utils.selenium_setup import selenium_setup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -8,29 +9,8 @@ import time
 import json
 import requests
 
-# ===== Selenium Setup =====
-options = Options()
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option("useAutomationExtension", False)
-options = Options()
-options.add_experimental_option('prefs', {
-    'intl.accept_languages': 'en,en_US'
-})
-
-options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
-
-# ==== Driver initializer ====
-driver = webdriver.Chrome(options=options)
-
-driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-    "source": """
-        Object.defineProperty(navigator, 'webdriver', {
-          get: () => undefined
-        })
-    """
-})
-
+# ==== Opening Turkish Airlines site with selenium ====
+driver = selenium_setup()
 driver.maximize_window()
 driver.get("https://www.turkishairlines.com/")
 
