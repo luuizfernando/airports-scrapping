@@ -2,8 +2,6 @@ from utils.selenium_setup import selenium_setup
 from utils.accept_cookies import accept_cookies
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
 import requests
