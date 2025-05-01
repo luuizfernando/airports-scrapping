@@ -126,49 +126,78 @@ print("\n[INFO] Waiting for page loading and requests...")
 time.sleep(10)
 
 # ==== Getting flight data ====
-view_itinerary = driver.find_element(By.CLASS_NAME, 'av__style_flight-detail-title___37OQ')
-view_itinerary.click()
+# Encontra todos os blocos de itinerário
+itinerary_blocks = driver.find_elements(By.CLASS_NAME, "av__style_details__6sbBo")
 
-# === JSON structure for saving ===
-flight_data = {
-    "price": "",
-    "departure_airport_info": {
-        "airport": "",
-        "time": "",
-        "company": "",
-        "flight_code": "",
-    },
-    "arrival_airport_info": {
-        "airport": "",
-        "time": "",
-        "company": "",
-        "flight_code": "",
-    }
-}
+# Lista para armazenar todos os dados dos voos
+all_flights_data = []
 
-# === Itinerary blocks ===
-itinerary = driver.find_elements(By.CLASS_NAME, "av__style_details__6sbBo")
+# Percorre cada bloco de itinerário
+for block in itinerary_blocks:
+    try:
+        # Estrutura para armazenar os dados do voo atual
+        flight_data = {
+            "price": "",
+            "departure_airport_info": {
+                "airport": "",
+                "time": "",
+                "company": "",
+                "flight_code": "",
+            },
+            "arrival_airport_info": {
+                "airport": "",
+                "time": "",
+                "company": "",
+                "flight_code": "",
+            }
+        }
 
-# Bloco de ida e volta
-departure = itinerary[0]
-arrival = itinerary[-1]
+        # Encontra os elementos dentro do bloco atual
+        try:
+            # Preço do voo
+            price_element = block.find_element(By.CLASS_NAME, 'av__style_pricePart__lYxno')
+            flight_data["price"] = price_element.text if price_element else "Preço não disponível"
+        except Exception as e:
+            print(f"Erro ao obter preço: {e}")
 
-time.sleep(2)
+        # Informações de partida
+        try:
+            departure_info = block.find_element(By.CLASS_NAME, "av__style_departure__1XqQZ")
+            flight_data["departure_airport_info"]["airport"] = departure_info.find_element(By.CLASS_NAME, "av__style_name__IDpLN").text
+            flight_data["departure_airport_info"]["time"] = departure_info.find_element(By.CLASS_NAME, "av__style_date__zutq0").text
+            flight_data["departure_airport_info"]["company"] = departure_info.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+            flight_data["departure_airport_info"]["flight_code"] = departure_info.find_element(By.CLASS_NAME, "av__style_flightNumber__1XqQZ").text
+        except Exception as e:
+            print(f"Erro ao obter informações de partida: {e}")
 
-# === Travel Price ===
-flight_data["price"] = driver.find_element(By.CLASS_NAME, 'av__style_pricePart__lYxno').text
+        # Informações de chegada
+        try:
+            arrival_info = block.find_element(By.CLASS_NAME, "av__style_arrival__1XqQZ")
+            flight_data["arrival_airport_info"]["airport"] = arrival_info.find_element(By.CLASS_NAME, "av__style_name__IDpLN").text
+            flight_data["arrival_airport_info"]["time"] = arrival_info.find_element(By.CLASS_NAME, "av__style_date__zutq0").text
+            flight_data["arrival_airport_info"]["company"] = arrival_info.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+            flight_data["arrival_airport_info"]["flight_code"] = arrival_info.find_element(By.CLASS_NAME, "av__style_flightNumber__1XqQZ").text
+        except Exception as e:
+            print(f"Erro ao obter informações de chegada: {e}")
 
-# === Departure Airport ===
-flight_data["departure_airport_info"]["airport"] = departure.find_element(By.CLASS_NAME, "av__style_name__IDpLN").text
-flight_data["departure_airport_info"]["time"] = departure.find_element(By.CLASS_NAME, "av__style_date__zutq0").text
-flight_data["departure_airport_info"]["company"] = departure.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
-flight_data["departure_airport_info"]["flight_code"] = departure.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+        # Adiciona os dados do voo atual à lista
+        all_flights_data.append(flight_data)
 
-# === Arrival Airport ===
-flight_data["arrival_airport_info"]["airport"] = arrival.find_element(By.CLASS_NAME, "av__style_name__IDpLN").text
-flight_data["arrival_airport_info"]["time"] = arrival.find_element(By.CLASS_NAME, "av__style_date__zutq0").text
-flight_data["arrival_airport_info"]["company"] = arrival.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
-flight_data["arrival_airport_info"]["flight_code"] = arrival.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+    except Exception as e:
+        print(f"Erro ao processar bloco de itinerário: {e}")
+        continue
 
-json_result = json.dumps(flight_data, ensure_ascii=False, indent=2)
-print(json_result)
+# Converte todos os dados para JSON e salva em arquivo
+try:
+    json_result = json.dumps(all_flights_data, ensure_ascii=False, indent=2)
+    with open('flight_data.json', 'w', encoding='utf-8') as f:
+        f.write(json_result)
+    print("\n[INFO] Dados dos voos salvos em 'flight_data.json'")
+except Exception as e:
+    print(f"Erro ao salvar dados em JSON: {e}")
+
+# Imprime os dados no console
+print("\n[INFO] Dados dos voos encontrados:")
+print(json.dumps(all_flights_data, ensure_ascii=False, indent=2))
+
+time.sleep(6000)
