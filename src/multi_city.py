@@ -174,9 +174,8 @@ flight_data = {
         "price": "",
         "departure_airport_info": {
             "airport": "",
-            "time": "",
-            "company": "",
-            "flight_code": "",
+            "flight_time": "",
+            "company_and_flight_code": "",
         },
         "arrival_airport_info": {
             "airport": "",
@@ -187,15 +186,12 @@ flight_data = {
         "price": "",
         "departure_airport_info": {
             "airport": "",
-            "time": "",
-            "company": "",
-            "flight_code": "",
+            "flight_time": "",
+            "company_and_flight_code": "",
         },
         "arrival_airport_info": {
             "airport": "",
-            "time": "",
-            "company": "",
-            "flight_code": "",
+            "arrival_time": ""
         }
     },
 }
@@ -210,9 +206,8 @@ view_itinerary.click()
 flight_data["first_flight"]["price"] = driver.find_element(By.CLASS_NAME, 'av__style_pricePart__lYxno').text
 # == Departure Airport Info ==
 flight_data["first_flight"]["departure_airport_info"]["airport"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[2])[1]').text
-flight_data["first_flight"]["departure_airport_info"]["time"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[1]/div/span[1])[1]').text
-flight_data["first_flight"]["departure_airport_info"]["company"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
-flight_data["first_flight"]["departure_airport_info"]["flight_code"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
+flight_data["first_flight"]["departure_airport_info"]["flight_time"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[1]/div/span[1])[1]').text
+flight_data["first_flight"]["departure_airport_info"]["company_and_flight_code"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
 
 # == Arrival Airport Info ==
 flight_data["first_flight"]["arrival_airport_info"]["airport"] = driver.find_element(By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[8]').text
@@ -243,13 +238,12 @@ flight_data["second_flight"]["price"] = driver.find_element(By.XPATH, "//span[@i
 
 # == Departure Airport Info ==
 flight_data["second_flight"]["departure_airport_info"]["airport"] = driver.find_element(By.CLASS_NAME, 'av__style_name__IDpLN').text
-# flight_data["second_flight"]["departure_airport_info"]["time"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[1]/div/span[1])[1]').text
-# flight_data["second_flight"]["departure_airport_info"]["company"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
-# flight_data["second_flight"]["departure_airport_info"]["flight_code"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
+flight_data["second_flight"]["departure_airport_info"]["flight_time"] = driver.find_element(By.CLASS_NAME, 'av__style_date__zutq0').text
+flight_data["second_flight"]["departure_airport_info"]["company_and_flight_code"] = driver.find_element(By.CLASS_NAME, 'av__style_carrier__eYot3').text
 
 # # == Arrival Airport Info ==
-# flight_data["second_flight"]["arrival_airport_info"]["airport"] = driver.find_element(By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[8]').text
-# flight_data["second_flight"]["arrival_airport_info"]["arrival_time"] = driver.find_element(By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[7]/div/span[1]').text
+flight_data["second_flight"]["arrival_airport_info"]["airport"] = driver.find_element(By.XPATH, "(//div[@class='av__style_name__IDpLN'])[2]").text
+flight_data["second_flight"]["arrival_airport_info"]["arrival_time"] = driver.find_element(By.XPATH, "(//span[@class='av__style_date__zutq0'])[2]").text
 
 # time.sleep(6000)
 
