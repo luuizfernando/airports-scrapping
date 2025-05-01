@@ -1,5 +1,6 @@
 from utils.selenium_setup import selenium_setup
 from utils.accept_cookies import accept_cookies
+from utils.insert_passengers import insert_passengers
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
@@ -55,26 +56,8 @@ try:
 except Exception as e:
     print("Error in select date:", e)
 
-# ===== Passangers number =====
-try:
-    passengers = driver.find_element(By.ID, 'bookerFlightPaxpicker')
-    passengers.click()
-    time.sleep(.5)
-    # == Adults ==
-    add_adult = driver.find_element(By.ID, 'bookerFlightPaxPickerPlusAdult')
-    add_adult.click()
-    time.sleep(.5)
-    # == Child ==
-    add_child = driver.find_element(By.ID, 'bookerFlightPaxPickerPlusChild')
-    add_child.click()
-    time.sleep(.5)
-    # == Infant ==
-    add_infant = driver.find_element(By.ID, 'bookerFlightPaxPickerPlusInfant')
-    add_infant.click()
-    time.sleep(.5)
-    print("Passangers added.")
-except Exception as e:
-    print("Erro ao selecionar passageiros:", e)
+# ===== Passengers number =====
+insert_passengers(driver, adults=1, children=1, infants=1)
 
 # ==== Confirming data and searching flights ====
 try: 
