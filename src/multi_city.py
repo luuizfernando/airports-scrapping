@@ -47,140 +47,93 @@ except Exception as e:
 travel = driver.find_element(By.ID, 'multi-city')
 travel.click()
 
-# Textos para preencher nos 2 primeiros trechos
-destinations = ["Istanbul", "Tunis"]
+# # Primeiro input
+# input1 = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[1]")
+# input1.send_keys(Keys.CONTROL, "a")
+# time.sleep(1)
+# input1.send_keys(Keys.BACKSPACE)
+# time.sleep(1)
+# input1.send_keys("São Paulo")
+# time.sleep(1)
+# origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
+# origin.click()
 
-# Captura todos os campos de origem e destino pela ordem de aparição
-from_inputs = driver.find_elements(By.ID, "fromPort")
-to_inputs = driver.find_elements(By.ID, "toPort")
+# # Segundo input
+# input2 = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[2]")
+# input2.send_keys("Istanbul")
 
-for i in range(2):  # ajusta se tiver mais trechos
-    try:
-        # Preencher origem
-        departure_input = driver.find_elements(By.ID, 'fromPort')
-        try:
-            departure_input = driver.find_element(By.ID, 'fromPort')
-            time.sleep(1)
-            departure_input.send_keys(Keys.CONTROL, "a")
-            time.sleep(1)
-            departure_input.send_keys(Keys.BACKSPACE)
-            time.sleep(1)
-            departure_input = driver.find_element(By.ID, 'fromPort')
-            departure_input.send_keys("São Paulo")
-            time.sleep(1)
-            origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-            origin.click()
-        except Exception as e:
-            print("Error in departure field:", e)
+# ==== First Travel ====
+# === Departure input ===
+departure_input =  driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[1]")
+try:
+    time.sleep(1)
+    departure_input.send_keys(Keys.CONTROL, "a")
+    time.sleep(1)
+    departure_input.send_keys(Keys.BACKSPACE)
+    time.sleep(1)
+    departure_input =  driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[1]")
+    departure_input.send_keys("São Paulo")
+    time.sleep(1)
+    origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
+    origin.click()
+except Exception as e:
+    print("Error in departure field:", e)
 
-        # === Destination input ===
-        try:
-            destination_input = driver.find_element(By.ID, 'toPort')
-            destination_input.send_keys(Keys.CONTROL, "a")
-            destination_input.send_keys(Keys.BACKSPACE)
-            destination_input = driver.find_element(By.ID, 'toPort')
-            destination_input.send_keys("Istanbul")
-            time.sleep(1)
-            destiny = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-            destiny.click()
-        except Exception as e:
-            print("Error in destination field:", e)
-
-        # === Departure date ===
-        try:
-            date = driver.find_element(By.XPATH, "//abbr[@aria-label='May 20, 2025']/ancestor::button")
-            date.click()
-            print("Date selected.")
-        except Exception as e:
-            print("Error in select date:", e)
-
-        to_inputs[i].click()
-        to_inputs[i].send_keys(Keys.CONTROL, 'a')
-        to_inputs[i].send_keys(Keys.BACKSPACE)
-        to_inputs[i].send_keys(destinations[i])
-        time.sleep(1)
-        WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH'))
-        ).click()
-
-        time.sleep(1)
-
-    except Exception as e:
-        print(f"[ERRO] Erro no trecho {i+1}: {e}")
-
-# # ==== First Travel ====
-# # === Departure input ===
-# departure_input = driver.find_elements(By.ID, 'fromPort')
-# try:
-#     departure_input = driver.find_element(By.ID, 'fromPort')
-#     time.sleep(1)
-#     departure_input.send_keys(Keys.CONTROL, "a")
-#     time.sleep(1)
-#     departure_input.send_keys(Keys.BACKSPACE)
-#     time.sleep(1)
-#     departure_input = driver.find_element(By.ID, 'fromPort')
-#     departure_input.send_keys("São Paulo")
-#     time.sleep(1)
-#     origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-#     origin.click()
-# except Exception as e:
-#     print("Error in departure field:", e)
-
-# # === Destination input ===
-# try:
-#     destination_input = driver.find_element(By.ID, 'toPort')
-#     destination_input.send_keys(Keys.CONTROL, "a")
-#     destination_input.send_keys(Keys.BACKSPACE)
-#     destination_input = driver.find_element(By.ID, 'toPort')
-#     destination_input.send_keys("Istanbul")
-#     time.sleep(1)
-#     destiny = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-#     destiny.click()
-# except Exception as e:
-#     print("Error in destination field:", e)
-
-# # === Departure date ===
-# try:
-#     date = driver.find_element(By.XPATH, "//abbr[@aria-label='May 20, 2025']/ancestor::button")
-#     date.click()
-#     print("Date selected.")
-# except Exception as e:
-#     print("Error in select date:", e)
-
-# # ==== Second Travel ====
-# # === Departure input ===
-# try:
-#     second_travel_departure_input = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input__7lsdw]')
-#     time.sleep(1)
-#     second_travel_departure_input.send_keys(Keys.CONTROL, "a")
-#     time.sleep(1)
-#     second_travel_departure_input.send_keys(Keys.BACKSPACE)
-#     time.sleep(1)
-#     second_travel_departure_input = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input__7lsdw')
-#     second_travel_departure_input.send_keys("Istanbul")
-#     time.sleep(1)
-#     origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-#     origin.click()
-# except Exception as e:
-#     print("Erro")
-
-# # === Destination input ===
-# try:
-#     second_travel_departure_input = driver.find_element(By.ID, 'toPort')
-#     second_travel_departure_input.send_keys(Keys.CONTROL, "a")
-#     second_travel_departure_input.send_keys(Keys.BACKSPACE)
-#     second_travel_departure_input = driver.find_element(By.ID, 'toPort')
-#     second_travel_departure_input.send_keys("Tunis")
-#     time.sleep(1)
-#     destiny = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-#     destiny.click()
-# except Exception as e:
-#     print("Error in destination field:", e)
+# === Destination input ===
+destination_input =  driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[2]")
+try:
+    destination_input.send_keys(Keys.CONTROL, "a")
+    destination_input.send_keys(Keys.BACKSPACE)
+    destination_input =  driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[2]")
+    destination_input.send_keys("Istanbul")
+    time.sleep(1)
+    destiny = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
+    destiny.click()
+except Exception as e:
+    print("Error in destination field:", e)
 
 # === Departure date ===
 try:
-    date = driver.find_element(By.XPATH, "//abbr[@aria-label='May 30, 2025']/ancestor::button")
+    date = driver.find_element(By.XPATH, "//abbr[@aria-label='May 20, 2025']/ancestor::button")
     date.click()
+    print("Date selected.")
+except Exception as e:
+    print("Error in select date:", e)
+
+# ==== Second Travel ====
+# === Departure input ===
+second_travel_departure_input = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[3]")
+try:
+    time.sleep(1)
+    second_travel_departure_input.send_keys(Keys.CONTROL, "a")
+    time.sleep(1)
+    second_travel_departure_input.send_keys(Keys.BACKSPACE)
+    time.sleep(1)
+    second_travel_departure_input = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[3]")
+    second_travel_departure_input.send_keys("Istanbul")
+    time.sleep(1)
+    origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
+    origin.click()
+except Exception as e:
+    print("Erro")
+
+# === Destination input ===
+try:
+    second_travel_departure_input = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[4]")
+    second_travel_departure_input.send_keys(Keys.CONTROL, "a")
+    second_travel_departure_input.send_keys(Keys.BACKSPACE)
+    second_travel_departure_input = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[4]")
+    second_travel_departure_input.send_keys("Tunis")
+    time.sleep(1)
+    destiny = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
+    destiny.click()
+except Exception as e:
+    print("Error in destination field:", e)
+
+# === Destination date ===
+try:
+    date2 = driver.find_element(By.XPATH, "//abbr[@aria-label='May 30, 2025']/ancestor::button")
+    date2.click()
     print("Date selected.")
 except Exception as e:
     print("Error in select date:", e)
@@ -208,20 +161,13 @@ except Exception as e:
 
 # ==== Confirming data and searching flights ====
 try: 
-    confirmation_button = driver.find_element(By.CLASS_NAME, 'hm__RoundAndOneWayTab_buttonWrapper__v15PI')
+    confirmation_button = driver.find_element(By.CLASS_NAME, 'hm__style_thy-button__ZfnOU.hm__MultiCityTab_searchButton___jq2U')
     confirmation_button.click()
     print("Confirmation done.")
 except Exception as e:
     print("Error in confirming data:", e)
 
-# ===== Catching Payload Request ====
-print("\n[INFO] Waiting for page loading and requests...")
-time.sleep(10)
-
 # ==== Getting flight data ====
-view_itinerary = driver.find_element(By.CLASS_NAME, 'av__style_flight-detail-title___37OQ')
-view_itinerary.click()
-
 # === JSON structure for saving ===
 flight_data = {
     "first_flight": {
@@ -234,9 +180,7 @@ flight_data = {
         },
         "arrival_airport_info": {
             "airport": "",
-            "time": "",
-            "company": "",
-            "flight_code": "",
+            "arrival_time": "",
         }
     },
     "second_flight": {
@@ -257,39 +201,57 @@ flight_data = {
 }
 
 # === Itinerary blocks ===
-itinerary = driver.find_elements(By.CLASS_NAME, "av__style_details__6sbBo")
-
-# Verifica se há ao menos dois voos (ida e volta)
-if len(itinerary) >= 2:
-    first = itinerary[0]
-    second = itinerary[1]
-
-    time.sleep(2)
-
-# === Travel Price ===
-flight_data["price"] = driver.find_element(By.CLASS_NAME, 'av__style_pricePart__lYxno').text
+view_itinerary = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div/div[1]/div/div/div/div[2]/div')))
+time.sleep(1)
+view_itinerary.click()
 
 # === First Flight ===
-flight_data["first_flight"]["departure_airport_info"]["airport"] = first.find_element(By.CLASS_NAME, "av__style_name__IDpLN").text
-flight_data["first_flight"]["departure_airport_info"]["time"] = first.find_element(By.CLASS_NAME, "av__style_date__zutq0").text
-flight_data["first_flight"]["departure_airport_info"]["company"] = first.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
-flight_data["first_flight"]["departure_airport_info"]["flight_code"] = first.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+# == Price ==
+flight_data["first_flight"]["price"] = driver.find_element(By.CLASS_NAME, 'av__style_pricePart__lYxno').text
+# == Departure Airport Info ==
+flight_data["first_flight"]["departure_airport_info"]["airport"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[2])[1]').text
+flight_data["first_flight"]["departure_airport_info"]["time"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[1]/div/span[1])[1]').text
+flight_data["first_flight"]["departure_airport_info"]["company"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
+flight_data["first_flight"]["departure_airport_info"]["flight_code"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
 
-flight_data["first_flight"]["arrival_airport_info"]["airport"] = first.find_elements(By.CLASS_NAME, "av__style_name__IDpLN")[-1].text
-flight_data["first_flight"]["arrival_airport_info"]["time"] = first.find_elements(By.CLASS_NAME, "av__style_date__zutq0")[-1].text
-flight_data["first_flight"]["arrival_airport_info"]["company"] = first.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
-flight_data["first_flight"]["arrival_airport_info"]["flight_code"] = first.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+# == Arrival Airport Info ==
+flight_data["first_flight"]["arrival_airport_info"]["airport"] = driver.find_element(By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[8]').text
+flight_data["first_flight"]["arrival_airport_info"]["arrival_time"] = driver.find_element(By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[7]/div/span[1]').text
+
+# == Selecting Ticket ==
+ticket_button = driver.find_element(By.CLASS_NAME, 'av__style_metro-radio__YF2_k')
+ticket_button.click()
+time.sleep(1)
+try:
+    ticket_confirmation_button = driver.find_element(By.CLASS_NAME, 'av__style_package-card-footer__pHrvc')
+    ticket_confirmation_button.click()
+    driver.execute_script("arguments[0].click();", ticket_confirmation_button)
+except Exception as e:
+    print(f"Erro ao clicar: {e}")
+    buttons = driver.find_elements(By.XPATH, '//*[@id="RS"]/div[3]/button')
+    print(f"Encontrados {len(buttons)} botões")
 
 # === Second Flight ===
-flight_data["second_flight"]["departure_airport_info"]["airport"] = second.find_element(By.CLASS_NAME, "av__style_name__IDpLN").text
-flight_data["second_flight"]["departure_airport_info"]["time"] = second.find_element(By.CLASS_NAME, "av__style_date__zutq0").text
-flight_data["second_flight"]["departure_airport_info"]["company"] = second.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
-flight_data["second_flight"]["departure_airport_info"]["flight_code"] = second.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+# == Itinerary blocks ==
+view_itinerary = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "(//div[@class='av__style_flight-detail___KZDm'])[2]")))
+time.sleep(1)
+view_itinerary.click()
+time.sleep(1)
 
-flight_data["second_flight"]["arrival_airport_info"]["airport"] = second.find_elements(By.CLASS_NAME, "av__style_name__IDpLN")[-1].text
-flight_data["second_flight"]["arrival_airport_info"]["time"] = second.find_elements(By.CLASS_NAME, "av__style_date__zutq0")[-1].text
-flight_data["second_flight"]["arrival_airport_info"]["company"] = second.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
-flight_data["second_flight"]["arrival_airport_info"]["flight_code"] = second.find_element(By.CLASS_NAME, "av__style_carrier__eYot3").text
+# == Price ==
+flight_data["second_flight"]["price"] = driver.find_element(By.XPATH, "//span[@id='amount-of-price-currency']").text
+
+# == Departure Airport Info ==
+flight_data["second_flight"]["departure_airport_info"]["airport"] = driver.find_element(By.CLASS_NAME, 'av__style_name__IDpLN').text
+# flight_data["second_flight"]["departure_airport_info"]["time"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[1]/div/span[1])[1]').text
+# flight_data["second_flight"]["departure_airport_info"]["company"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
+# flight_data["second_flight"]["departure_airport_info"]["flight_code"] = driver.find_element(By.XPATH, '(//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[4])[1]').text
+
+# # == Arrival Airport Info ==
+# flight_data["second_flight"]["arrival_airport_info"]["airport"] = driver.find_element(By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[8]').text
+# flight_data["second_flight"]["arrival_airport_info"]["arrival_time"] = driver.find_element(By.XPATH, '//*[@id="flightItem_recommendedOrder_0_0"]/div[2]/div/div[2]/div/div/div[3]/div[7]/div/span[1]').text
+
+# time.sleep(6000)
 
 json_result = json.dumps(flight_data, ensure_ascii=False, indent=2)
 print(json_result)
