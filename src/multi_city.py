@@ -47,21 +47,6 @@ except Exception as e:
 travel = driver.find_element(By.ID, 'multi-city')
 travel.click()
 
-# # Primeiro input
-# input1 = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[1]")
-# input1.send_keys(Keys.CONTROL, "a")
-# time.sleep(1)
-# input1.send_keys(Keys.BACKSPACE)
-# time.sleep(1)
-# input1.send_keys("São Paulo")
-# time.sleep(1)
-# origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-# origin.click()
-
-# # Segundo input
-# input2 = driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[2]")
-# input2.send_keys("Istanbul")
-
 # ==== First Travel ====
 # === Departure input ===
 departure_input =  driver.find_element(By.XPATH, "(//input[@class='hm__style_booker-input__7lsdw'])[1]")
