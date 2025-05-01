@@ -77,8 +77,6 @@ flight_data = {
 
 # === Itinerary blocks ===
 itinerary = driver.find_elements(By.CLASS_NAME, "av__style_details__6sbBo")
-
-# Bloco de ida e volta
 departure = itinerary[0]
 arrival = itinerary[-1]
 
