@@ -185,7 +185,5 @@ flight_data["second_flight"]["departure_airport_info"]["company_and_flight_code"
 flight_data["second_flight"]["arrival_airport_info"]["airport"] = driver.find_element(By.XPATH, "(//div[@class='av__style_name__IDpLN'])[2]").text
 flight_data["second_flight"]["arrival_airport_info"]["arrival_time"] = driver.find_element(By.XPATH, "(//span[@class='av__style_date__zutq0'])[2]").text
 
-# time.sleep(6000)
-
 json_result = json.dumps(flight_data, ensure_ascii=False, indent=2)
 print(json_result)
