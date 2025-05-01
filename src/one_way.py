@@ -1,8 +1,8 @@
 from utils.selenium_setup import selenium_setup
 from utils.accept_cookies import accept_cookies
 from utils.insert_passengers import insert_passengers
+from utils.flight_location import fill_location
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 import time
 import json
 import requests
@@ -19,34 +19,12 @@ accept_cookies(driver)
 travel = driver.find_element(By.ID, 'one-way')
 travel.click()
 
-# ===== Departure input =====
-try:
-    departure_input = driver.find_element(By.ID, 'fromPort')
-    time.sleep(1)
-    departure_input.send_keys(Keys.CONTROL, "a")
-    time.sleep(1)
-    departure_input.send_keys(Keys.BACKSPACE)
-    time.sleep(1)
-    departure_input = driver.find_element(By.ID, 'fromPort')
-    departure_input.send_keys("São Paulo")
-    time.sleep(1)
-    origin = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-    origin.click()
-except Exception as e:
-    print("Error in departure field:", e)
+# ==== Flight Location ====
+# === Departure input ===
+fill_location(driver, "fromPort", "São Paulo")
 
-# ===== Destination input =====
-try:
-    destination_input = driver.find_element(By.ID, 'toPort')
-    destination_input.send_keys(Keys.CONTROL, "a")
-    destination_input.send_keys(Keys.BACKSPACE)
-    destination_input = driver.find_element(By.ID, 'toPort')
-    destination_input.send_keys("Kabul")
-    time.sleep(1)
-    destiny = driver.find_element(By.CLASS_NAME, 'hm__style_booker-input-list-item-text__ajPdH')
-    destiny.click()
-except Exception as e:
-    print("Error in destination field:", e)
+# === Arrival input ===
+fill_location(driver, "toPort", "Kabul")
 
 # ===== Travel date =====
 try:
